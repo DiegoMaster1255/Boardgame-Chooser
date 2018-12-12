@@ -1,0 +1,509 @@
+package com.sample
+ 
+import com.sample.BoardgameChooser.*;
+ 
+rule "init"
+    when
+    then
+    	System.out.println("INIT");
+    	String[] options = {"Yes", "No"};
+        insert(new Question("Are you playing with children?", options));
+end
+
+rule "Children"
+    when
+        q: Question(question == "Are you playing with children?" && answer == null)
+    then
+    	q.showQuestion();
+        update(q);
+end
+
+rule "Younger"
+	when
+		Question(question == "Are you playing with children?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Younger than 7?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Girly girls"
+	when
+		Question(question == "Younger than 7?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Girly girls only?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Candy Land"
+	when
+		Question(question == "Girly girls only?" && answer == "Yes")
+	then
+		insert(new Choice("Candy Land"));
+		System.out.println("Candy Land");
+end
+
+rule "Rules or fun"
+	when
+		Question(question == "Girly girls only?" && answer == "No")
+	then
+		String[] options = {"Fun", "Rules"};
+		Question q = new Question("Real rules or just fun?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Fun for Adults"
+	when
+		Question(question == "Real rules or just fun?" && answer == "Rules")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Actually fun for Adults?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Sorry!"
+	when
+		Question(question == "Actually fun for Adults?" && answer == "Yes")
+	then
+		insert(new Choice("Sorry!"));
+		System.out.println("Sorry!");
+end
+
+rule "Life"
+	when
+		Question(question == "Actually fun for Adults?" && answer == "No")
+	then
+		insert(new Choice("Life"));
+		System.out.println("Life");
+end
+
+rule "Rube Goldberg"
+	when
+		Question(question == "Real rules or just fun?" && answer == "Fun")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Rube Goldberg?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Mouse Trap"
+	when
+		Question(question == "Rube Goldberg?" && answer == "Yes")
+	then
+		insert(new Choice("Mouse Trap"));
+		System.out.println("Mouse Trap");
+end
+
+rule "Operation"
+	when
+		Question(question == "Rube Goldberg?" && answer == "No")
+	then
+		insert(new Choice("Operation"));
+		System.out.println("Operation");
+end
+
+rule "Crushing defeat"
+	when
+		Question(question == "Younger than 7?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Let them experience crushing defeat?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Monopoly"
+	when
+		Question(question == "Let them experience crushing defeat?" && answer == "Yes")
+	then
+		insert(new Choice("Monopoly"));
+		System.out.println("Monopoly");
+end
+
+rule "Portable"
+	when
+		Question(question == "Let them experience crushing defeat?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Portable?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Yahtzee!"
+	when
+		Question(question == "Portable?" && answer == "Yes")
+	then
+		insert(new Choice("Yahtzee!"));
+		System.out.println("Yahtzee!");
+end
+
+rule "Team or not"
+	when
+		Question(question == "Portable?" && answer == "No")
+	then
+		String[] options = {"One", "Team"};
+		Question q = new Question("One winner or a team effort?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "One"
+	when
+		Question(question == "One winner or a team effort?" && answer == "One")
+	then
+		insert(new Choice("Small World"));
+		System.out.println("Small World");
+end
+
+rule "Forbidden Island"
+	when
+		Question(question == "One winner or a team effort?" && answer == "Team")
+	then
+		insert(new Choice("Forbidden Island"));
+		System.out.println("Forbidden Island");
+end
+
+rule "Two hours"
+	when
+		Question(question == "Are you playing with children?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Play for more than two hours?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Hardest ever"
+	when
+		Question(question == "Play for more than two hours?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Hardest rules ever?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Axis and Allies"
+	when
+		Question(question == "Hardest rules ever?" && answer == "Yes")
+	then
+		insert(new Choice("Axis and Allies"));
+		System.out.println("Axis and Allies");
+end
+
+rule "Until the end"
+	when
+		Question(question == "Hardest rules ever?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("All players in until the end?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Le Havre"
+	when
+		Question(question == "All players in until the end?" && answer == "Yes")
+	then
+		insert(new Choice("Le Havre"));
+		System.out.println("Le Havre");
+end
+
+rule "Dice or strategy"
+	when
+		Question(question == "All players in until the end?" && answer == "No")
+	then
+		String[] options = {"Dice", "Strategy"};
+		Question q = new Question("Dice battles or 100% strategy?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Risk"
+	when
+		Question(question == "Dice battles or 100% strategy?" && answer == "Dice")
+	then
+		insert(new Choice("Risk"));
+		System.out.println("Risk");
+end
+
+rule "Game of Thrones"
+	when
+		Question(question == "Dice battles or 100% strategy?" && answer == "Strategy")
+	then
+		insert(new Choice("Game of Thrones"));
+		System.out.println("Game of Thrones");
+end
+
+rule "Huge nerd"
+	when
+		Question(question == "Play for more than two hours?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Are you a huge nerd?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Preparing"
+	when
+		Question(question == "Are you a huge nerd?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Do you want to spend a lot of time preparing?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Warhammer"
+	when
+		Question(question == "Do you want to spend a lot of time preparing?" && answer == "Yes")
+	then
+		insert(new Choice("Warhammer"));
+		System.out.println("Warhammer");
+end
+
+rule "Spending money"
+	when
+		Question(question == "Do you want to spend a lot of time preparing?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Do you really like spending money?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Magic"
+	when
+		Question(question == "Do you really like spending money?" && answer == "Yes")
+	then
+		insert(new Choice("Magic"));
+		System.out.println("Magic");
+end
+
+rule "Boomer"
+	when
+		Question(question == "Do you really like spending money?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Does the name Boomer give you wet dreams?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Battlestar"
+	when
+		Question(question == "Does the name Boomer give you wet dreams?" && answer == "Yes")
+	then
+		insert(new Choice("Battlestar"));
+		System.out.println("Battlestar");
+end
+
+rule "Cosmic"
+	when
+		Question(question == "Does the name Boomer give you wet dreams?" && answer == "No")
+	then
+		insert(new Choice("Cosmic Encounter"));
+		System.out.println("Cosmic Encounter");
+end
+
+rule "Get along"
+	when
+		Question(question == "Are you a huge nerd?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Do you think everyone should just get along?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Dick"
+	when
+		Question(question == "Do you think everyone should just get along?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Do you secretly wish you were a dick? (a P.I)", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Arkham Horror"
+	when
+		Question(question == "Do you secretly wish you were a dick? (a P.I)" && answer == "Yes")
+	then
+		insert(new Choice("Arkham Horror"));
+		System.out.println("Arkham Horror");
+end
+
+rule "Monty"
+	when
+		Question(question == "Do you secretly wish you were a dick? (a P.I)" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Do you have a Monty Python Fetish?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Shadows Over Camelot"
+	when
+		Question(question == "Do you have a Monty Python Fetish?" && answer == "Yes")
+	then
+		insert(new Choice("Shadows Over Camelot"));
+		System.out.println("Shadows Over Camelot");
+end
+
+rule "Zombies"
+	when
+		Question(question == "Do you have a Monty Python Fetish?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Zombies?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Last Night on Earth"
+	when
+		Question(question == "Zombies?" && answer == "Yes")
+	then
+		insert(new Choice("Last Night on Earth"));
+		System.out.println("Last Night on Earth");
+end
+
+rule "Monsters or viruses"
+	when
+		Question(question == "Zombies?" && answer == "No")
+	then
+		String[] options = {"Monster", "Virus"};
+		Question q = new Question("Would you rather fight monsters or viruses?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Pandemic"
+	when
+		Question(question == "Would you rather fight monsters or viruses?" && answer == "Virus")
+	then
+		insert(new Choice("Pandemic"));
+		System.out.println("Pandemic");
+end
+
+rule "Dungeon Run"
+	when
+		Question(question == "Would you rather fight monsters or viruses?" && answer == "Monster")
+	then
+		insert(new Choice("Dungeon Run"));
+		System.out.println("Dungeon Run");
+end
+
+rule "Gamble"
+	when
+		Question(question == "Do you think everyone should just get along?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Do you like to gamble?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Rummoli"
+	when
+		Question(question == "Do you like to gamble?" && answer == "Yes")
+	then
+		insert(new Choice("Rummoli"));
+		System.out.println("Rummoli");
+end
+
+rule "Are you 50"
+	when
+		Question(question == "Do you like to gamble?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Are you over 50 years old?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Over 50 list"
+	when
+		Question(question == "Are you over 50 years old?" && answer == "No")
+	then
+		insert(new Choice("Twister"));
+		System.out.println("Twister");
+		insert(new Choice("Scrabble"));
+		System.out.println("Scrabble");
+		insert(new Choice("Ticket to Ride"));
+		System.out.println("Ticket to Ride");
+		insert(new Choice("Cranium"));
+		System.out.println("Cranium");
+end
+
+rule "More than 2"
+	when
+		Question(question == "Are you over 50 years old?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("More than two of you?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Cribbage"
+	when
+		Question(question == "More than two of you?" && answer == "Yes")
+	then
+		insert(new Choice("Cribbage"));
+		System.out.println("Cribbage");
+end
+
+rule "Mensa"
+	when
+		Question(question == "More than two of you?" && answer == "No")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Are you in Mensa?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Backgammon"
+	when
+		Question(question == "Are you in Mensa?" && answer == "No")
+	then
+		insert(new Choice("Backgammon"));
+		System.out.println("Backgammon");
+end
+
+rule "Cliche"
+	when
+		Question(question == "Are you in Mensa?" && answer == "Yes")
+	then
+		String[] options = {"Yes", "No"};
+		Question q = new Question("Chess too cliche?", options);
+		q.showQuestion();
+		insert(q);
+end
+
+rule "Chess"
+	when
+		Question(question == "Chess too cliche?" && answer == "No")
+	then
+		insert(new Choice("Chess"));
+		System.out.println("Chess");
+end
+
+rule "Go"
+	when
+		Question(question == "Chess too cliche?" && answer == "Yes")
+	then
+		insert(new Choice("Go"));
+		System.out.println("Go");
+end
